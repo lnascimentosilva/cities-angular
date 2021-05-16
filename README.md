@@ -17,5 +17,7 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 ## Running from built files
 
 Run `npm install angular-http-server -g` to install angular-http-server.
+
 Run `angular-http-server --path dist/cities-frontend/` to run the server.
+
 Open a browser using `http://localhost:8080/`.
