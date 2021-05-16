@@ -1,12 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { MatMenuModule } from '@angular/material/menu'; 
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        NoopAnimationsModule,
+        RouterTestingModule,
+        MatMenuModule
       ],
       declarations: [
         AppComponent
@@ -20,16 +24,28 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'cities-frontend'`, () => {
+  it(`should have as img src 'assets/images/eurovision_services_logo_transparent.png'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('cities-frontend');
+    const img = fixture.nativeElement.querySelector('img')
+    expect(img.src).toContain('assets/images/eurovision_services_logo_transparent.png');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('cities-frontend app is running!');
+  describe('Navigation menu', () => {
+    it('should not have the menu open', () => {
+      const fixture = TestBed.createComponent(AppComponent);
+      const dom = fixture.nativeElement;
+      const menu = dom.parentNode.querySelector('.mat-menu-panel');
+      expect(menu).toBeFalsy();
+    });
+
+    it('should open the menu when clicking on the Menu button', () => {
+      const fixture = TestBed.createComponent(AppComponent);
+      fixture.detectChanges();
+      const dom = fixture.nativeElement;
+      const button = dom.querySelector('.mat-menu-trigger');
+      button.click();
+      const menu = dom.parentNode.querySelector('.mat-menu-panel');
+      expect(menu).toBeTruthy();
+    });
   });
 });
